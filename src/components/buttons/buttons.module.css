@@ -1,0 +1,36 @@
+.button {
+	display: block;
+	width: 400px;
+	height: 50px;
+	max-width: 100%;
+	padding: 10px;
+	margin: auto;
+	border: none;
+	border-radius: 30px;
+
+	font-weight: bold;
+	font-size: 1.2em;
+	transition: 0.2s ease;
+}
+
+.button:hover{
+	transition: 0.2s ease;
+	cursor: pointer;
+	/* filter: brightness(.8); */
+	box-shadow: 0 0 5px white;
+	/* color: #ffc491; */
+}
+
+.button:active {
+	filter: brightness(.9);
+}
+
+.primaryButton {
+	background-color: var(--pButtonColor);
+	color: var(--pButtonText);
+}
+
+.secondaryButton {
+	background-color: var(--sButtonColor);
+	color: var(--sButtonText);
+}

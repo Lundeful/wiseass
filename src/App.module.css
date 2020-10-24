@@ -1,0 +1,33 @@
+:root {
+	--bg: #1b1f25;
+	--bg: #1e1e1e;
+	--bg: white;
+	--dark500: #1b1f25;
+	--dark700: #383c42;
+	--dark800: #2a2d33;
+
+	--white800: #ededed;
+	--white900: #f9f9f9;
+	
+	--main500: #ffc491;
+
+	--pButtonColor:  black;
+	--pButtonText: white;
+
+	--sButtonColor:  black;
+	--sButtonText: white;
+
+}
+
+body, html {
+	margin: 0;
+	padding: 0;
+	background-color: var(--bg);
+	color: black;
+}
+.container {
+	width: 800px;
+	max-width: 90%;
+	margin: auto;
+}
+
