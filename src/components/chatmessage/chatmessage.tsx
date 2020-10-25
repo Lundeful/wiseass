@@ -55,7 +55,7 @@ export const ChatMessage = () => {
 
 	return (
 		<h2 className={styles.noChatMessage}>
-			{/* The spot is empty, share something!! */}
+			The spot is empty, share something!!
 		</h2>
 	);
 };
