@@ -1,3 +1,43 @@
 .tempinfo h1 {
 	text-align: center;
 }
+
+.userInput {
+	display: flex;
+	margin: 20px auto;
+	height: 40px;
+	border: 2px solid black;
+	border-radius: 3px;
+	width: 100%;
+}
+.userInput input {
+	padding-left: 8px;
+	font-size: 1.2rem;
+	border: none;
+	font-weight: bold;
+	min-width: 20px;
+	flex: 1;
+}
+
+.userInput input::placeholder {
+	font-weight: normal;
+	color: black;
+}
+
+.userInput button {
+	cursor: pointer;
+	height: 40px;
+	width: 60px;
+	border: none;
+	background-color: black;
+	color: white;
+	transition: 0.2s ease-out;
+}
+
+.userInput button:hover {
+	color: gold;
+}
+
+.sendIcon {
+	font-size: 1.5rem;
+}

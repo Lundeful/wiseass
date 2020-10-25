@@ -1,44 +1,74 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../auth/Auth";
 import { PrimaryButton } from "../../components/buttons/buttons";
 import { Layout } from "../../components/layout/Layout";
-import { fireAuth } from "../../fireApp";
+import { fireApp, fireAuth } from "../../fireApp";
 import styles from "./chatroom.module.css";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import {
+	ChatMessage,
+	IChatMessage,
+} from "../../components/chatmessage/chatmessage";
+import { IoIosSend } from "react-icons/io";
+import * as firebase from 'firebase/app';
 
-type Props = {};
-
-const signOut = () => {
-	fireAuth.signOut();
-};
-
-const TempInfo = () => {
+export const ChatRoom = () => {
+	// User input
+	const [input, setInput] = useState("");
+	// User info
 	const user: firebase.User = useContext(AuthContext).user;
-	console.log(user);
 
-	const photoUrl = user.photoURL;
+	// Messages from firestore
+	const firestore = fireApp.firestore();
+	const messagesRef = firestore.collection("messages");
+	const query = messagesRef.orderBy('createdAt', 'desc').limit(25);
+	const [messages]: any = useCollectionData(query, {idField: 'id'});	
 
-	return (
-		<div className={styles.tempinfo}>
-			<hr />
-			<h1>Congratulations, you're logged in</h1>
-			{photoUrl && <img src={photoUrl} alt="user"/>}
-			<h4>User</h4>
-			<p>{user.displayName}</p>
-			<h4>Email</h4>
-			<p>{user.email}</p>
-			<hr />
-			<p>This app is under construction. Come back for more, sooooooon.</p>
-		</div>
-	);
-};
+	const sendChat = async (chat: IChatMessage) => {
+		await messagesRef.add(chat);
+	};
 
-export function ChatRoom(props: Props) {
+	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if (input?.length > 0) {
+			const newChat: IChatMessage = {
+				message: input.trim(),
+				username: user.displayName,
+				photoURL: user.photoURL,
+				createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+
+			};
+			sendChat(newChat).then(() => setInput(''));
+		}		
+	};
+
+	const signOut = () => {
+		fireAuth.signOut();
+	};
+
 	return (
 		<Layout>
 			<div>
-				<TempInfo />
+				{messages &&
+					messages.map((m) => {
+						return (
+							<ChatMessage
+								message={m.message}
+								key={m.id}
+								username={m.username}
+								createdAt={m.createdAt}
+								photoURL={m.photoURL}
+							/>
+						);
+					})}
+				<form onSubmit={onSubmit} className={styles.userInput}>
+					<input onChange={(event) => setInput(event.target.value)} value={input} placeholder="Share your wisdom here"/>
+					<button type="submit">
+						<IoIosSend className={styles.sendIcon} />
+					</button>
+				</form>
 				<PrimaryButton onClick={signOut}>Sign out</PrimaryButton>
 			</div>
 		</Layout>
 	);
-}
+};

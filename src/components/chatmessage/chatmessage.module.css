@@ -1,0 +1,44 @@
+.container {
+	width: 100%;
+	margin: 20px auto;
+}
+
+.message {
+	display: flex;
+	text-align: center;
+}
+
+.quote {
+	font-size: 2rem;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	width: auto;
+}
+
+.iconLeft {
+	margin-right: 5px;
+}
+
+.iconRight {
+	margin-left: 5px;
+}
+
+.userContainer {
+	display: flex;
+	align-items: center;
+}
+
+.userContainer p {
+	margin-left: 5px;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.userContainer img {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	object-fit: cover;
+	border-radius: 50%;
+}
