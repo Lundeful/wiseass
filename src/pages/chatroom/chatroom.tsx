@@ -63,7 +63,7 @@ export const ChatRoom = () => {
 					/>
 				) : (
 					<h2 className={styles.noChatMessage}>
-						There are no wise words at the moment. Share your own
+						The spot is empty, share something!!
 					</h2>
 				)}
 				<form onSubmit={onSubmit} className={styles.userInput}>
