@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { LoadingComp } from "../components/LoadingComp";
+import { LoadingComponent } from "../components/loadingcomponent/loadingComponent";
 import { fireApp, fireAuth } from "../fireApp";
 
 export const AuthContext = React.createContext(null);
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: any) => {
 		});
 	},[]);
     
-	if (isLoading) return <LoadingComp />;
+	if (isLoading) return <LoadingComponent />;
 
 	return (
 		<AuthContext.Provider value={{ user: user }}>

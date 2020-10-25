@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./chatmessage.module.css";
-import { FaUserSecret, FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
+import { FaUserSecret, FaQuoteLeft } from 'react-icons/fa';
 
 export interface IChatMessage {
 	message: string;
@@ -18,8 +18,7 @@ export const ChatMessage = (props: IChatMessage) => {
 		<div className={styles.container}>
 			<div className={styles.message}>
 				<FaQuoteLeft className={styles.iconLeft} />
-				<p className={styles.quote}>{message}</p>
-				<FaQuoteRight className={styles.iconRight} />
+				<span className={styles.quote}>{message}</span>
 			</div>
 			<div className={styles.userContainer}>
 				{photoURL ? image : icon}
