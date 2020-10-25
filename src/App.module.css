@@ -31,3 +31,6 @@ body, html {
 	margin: auto;
 }
 
+a {
+	text-decoration: none;
+}
