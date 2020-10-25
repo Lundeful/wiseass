@@ -14,7 +14,7 @@ export const InputField = () => {
 	const msgRef = db.collection("messages");
 
 	const sendChat = async (chat: IChatMessage) => {
-		await msgRef.add(chat);
+		await msgRef.add(chat).then(() => updateMessage());
 	};
 
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,6 +27,7 @@ export const InputField = () => {
 				username: userInfo.displayName,
 				photoURL: userInfo.photoURL,
 				createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+				displayedAt: null,
 			};
 			sendChat(newChat).then(() => setUserInput(""));
 		}
@@ -46,4 +47,37 @@ export const InputField = () => {
 			</button>
 		</form>
 	);
+};
+
+export const updateMessage = async () => {
+	const db = fireApp.firestore();
+	db.collection("info")
+		.doc("currentTime")
+		.set({ time: firebase.firestore.FieldValue.serverTimestamp() })
+		.then(() => {
+			db.collection("info")
+				.doc("currentTime")
+				.get()
+				.then((timeObj) => {
+					const currentTime = timeObj.data()?.time?.seconds;					
+					db.collection("messages")
+						.orderBy("createdAt", 'asc')
+						.limit(2)
+						.get()
+						.then((messages) => {
+							if (messages.docs.length > 0) {
+								const oldestMessage = messages.docs[0].data();
+								if (oldestMessage.displayedAt == null) {
+									console.log("YES");
+									db.collection("messages").doc(messages.docs[0].id).update({displayedAt: currentTime});
+								} else if (currentTime - oldestMessage.displayedAt > 30) {
+									db.collection("messages").doc(messages.docs[0].id).delete();
+									if (messages.docs.length > 1) {
+										db.collection("messages").doc(messages.docs[1].id).update({displayedAt: currentTime});	
+									}
+								}
+							}
+						});
+				});
+		});
 };

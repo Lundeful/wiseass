@@ -1,25 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./chatmessage.module.css";
 import { FaUserSecret, FaQuoteLeft } from "react-icons/fa";
 import { fireApp } from "../../fireApp";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import { updateMessage } from "../inputField/inputField";
 
 export interface IChatMessage {
 	message: string;
 	username?: string;
 	photoURL?: string;
 	createdAt: any;
+	displayedAt: any;
 }
 
 export const ChatMessage = () => {
 	const db = fireApp.firestore();
 	const msgRef = db.collection("messages");
-	const query = msgRef.orderBy("createdAt", "desc").limit(1);
+	const query = msgRef.orderBy("createdAt", "asc").limit(1);
 	const [msg, loading, error]: [
 		IChatMessage[] | undefined,
 		boolean,
 		Error | undefined
 	] = useCollectionData(query, { idField: "id" });
+
+	useEffect(() => {
+		updateMessage();
+	}, [msg]);
 
 	if (loading) {
 		return <h2 className={styles.noChatMessage}>loading...</h2>;
@@ -49,7 +55,7 @@ export const ChatMessage = () => {
 
 	return (
 		<h2 className={styles.noChatMessage}>
-			The spot is empty, share something!!
+			{/* The spot is empty, share something!! */}
 		</h2>
 	);
 };
