@@ -1,15 +1,13 @@
 .container {
 	width: 100%;
 	margin: 20px auto;
-	min-height: 350px;
+	min-height: 300px;
 	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
-	/* justify-content: space-between; */
 }
 
 .message {
-	/* display: flex; */
 	text-align: center;
 	justify-content: center;
 }
@@ -55,4 +53,10 @@
 	height: 30px;
 	object-fit: cover;
 	border-radius: 50%;
+}
+
+.noChatMessage {
+	padding-top: 120px;
+	height: 180px;
+	text-align: center;
 }
