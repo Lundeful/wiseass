@@ -6,6 +6,7 @@ import { ProtectedRoute } from "./auth/ProtectedRoute";
 import { AuthProvider } from "./auth/Auth";
 import styles from './App.module.css';
 import { ChatRoom } from "./pages/chatroom/chatroom";
+import { About } from "./pages/about/about";
 
 const App = () => {
 	return (
@@ -14,6 +15,7 @@ const App = () => {
         <AuthProvider>
           <ProtectedRoute exact path="/" component={ChatRoom}/>
           <Route exact path="/signin" component={SignIn}/>
+          <Route exact path="/about" component={About} />
         </AuthProvider>
       </div>
     </MemoryRouter>

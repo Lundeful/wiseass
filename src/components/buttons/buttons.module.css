@@ -4,10 +4,9 @@
 	height: 50px;
 	max-width: 100%;
 	padding: 10px;
-	margin: auto;
+	margin: 20px auto;
 	border: none;
 	border-radius: 30px;
-
 	font-weight: bold;
 	font-size: 1.2em;
 	transition: 0.2s ease;
@@ -16,9 +15,8 @@
 .button:hover{
 	transition: 0.2s ease;
 	cursor: pointer;
-	/* filter: brightness(.8); */
 	box-shadow: 0 0 5px white;
-	/* color: #ffc491; */
+	color: gold;
 }
 
 .button:active {

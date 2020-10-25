@@ -5,8 +5,11 @@ import { fireAuth } from "../../fireApp";
 import styles from "./chatroom.module.css";
 import { ChatMessage } from "../../components/chatmessage/chatmessage";
 import { InputField } from "../../components/inputField/inputField";
+import { useHistory } from "react-router-dom";
 
 export const ChatRoom = () => {
+	const history = useHistory();
+
 	const signOut = () => {
 		fireAuth.signOut();
 	};
@@ -17,6 +20,7 @@ export const ChatRoom = () => {
 				<ChatMessage />
 				<InputField />
 				<PrimaryButton onClick={signOut}>Sign out</PrimaryButton>
+				<PrimaryButton onClick={() => history.push("/about")}>About this app</PrimaryButton>
 			</div>
 		</Layout>
 	);

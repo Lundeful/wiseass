@@ -3,7 +3,7 @@ import styles from "./buttons.module.css";
 
 type Props = {
 	children: any;
-	onClick: any;
+	onClick?: any;
 	condensed?: boolean;
 	primary?: boolean;
 	secondary?: boolean;
