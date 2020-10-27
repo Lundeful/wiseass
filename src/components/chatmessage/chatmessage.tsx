@@ -4,7 +4,6 @@ import { FaUserSecret, FaQuoteLeft } from "react-icons/fa";
 import { fireApp } from "../../fireApp";
 import * as firebase from 'firebase/app';
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { updateMessage } from "../inputField/inputField";
 
 export interface IChatMessage {
 	message: string;
