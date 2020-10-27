@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import styles from "./chatmessage.module.css";
 import { FaUserSecret, FaQuoteLeft } from "react-icons/fa";
 import { fireApp } from "../../fireApp";
+import * as firebase from 'firebase/app';
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { updateMessage } from "../inputField/inputField";
 
 export interface IChatMessage {
 	message: string;
@@ -22,10 +22,12 @@ export const ChatMessage = () => {
 		boolean,
 		Error | undefined
 	] = useCollectionData(query, { idField: "id" });
+	const updateIntervalInSeconds = 15;
 
 	useEffect(() => {
-		updateMessage();
-	}, [msg]);
+		const interval = setInterval(() => updateMessage(), updateIntervalInSeconds * 1000);
+		return () => clearInterval(interval);
+	}, []);
 
 	if (loading) {
 		return <h2 className={styles.noChatMessage}>loading...</h2>;
@@ -55,7 +57,40 @@ export const ChatMessage = () => {
 
 	return (
 		<h2 className={styles.noChatMessage}>
-			{/* The spot is empty, share something!! */}
+			The spot is empty, share something!!
 		</h2>
 	);
+};
+
+export const updateMessage = async () => {
+	const timeToLive = 60;
+	const db = fireApp.firestore();
+	db.collection("info")
+		.doc("currentTime")
+		.set({ time: firebase.firestore.FieldValue.serverTimestamp() })
+		.then(() => {
+			db.collection("info")
+				.doc("currentTime")
+				.get()
+				.then((timeObj) => {
+					const currentTime = timeObj.data()?.time?.seconds;					
+					db.collection("messages")
+						.orderBy("createdAt", 'asc')
+						.limit(2)
+						.get()
+						.then((messages) => {
+							if (messages.docs.length > 0) {
+								const oldestMessage = messages.docs[0].data();
+								if (oldestMessage.displayedAt == null) {
+									db.collection("messages").doc(messages.docs[0].id).update({displayedAt: currentTime});
+								} else if (currentTime - oldestMessage.displayedAt > timeToLive) {
+									db.collection("messages").doc(messages.docs[0].id).delete();
+									if (messages.docs.length > 1) {
+										db.collection("messages").doc(messages.docs[1].id).update({displayedAt: currentTime});	
+									}
+								}
+							}
+						});
+				});
+		});
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { MemoryRouter, Route } from "react-router-dom";
 import { SignIn } from "./pages/signin/SignIn";
 import { ProtectedRoute } from "./auth/ProtectedRoute";
