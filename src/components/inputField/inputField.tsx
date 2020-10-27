@@ -5,6 +5,7 @@ import { fireApp } from "../../fireApp";
 import { IChatMessage } from "../chatmessage/chatmessage";
 import styles from "./inputField.module.css";
 import { IoIosSend } from "react-icons/io";
+import {updateMessage } from '../chatmessage/chatmessage';
 
 export const InputField = () => {
 	const [userInput, setUserInput] = useState("");

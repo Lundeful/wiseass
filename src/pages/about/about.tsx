@@ -18,14 +18,14 @@ export const About = () => {
 				<hr></hr>
 				<p>
 					<b>Everyone</b>. There is just <b>one public</b> room. Each message is
-					visible for <b>one minute</b>. Your <b>name</b> and <b>picture</b> will accompany
+					visible for <b>one minute</b> before it is deleted off of the server. Your <b>name</b> and <b>picture</b> will accompany
 					your post.
 				</p>
 
 				<h1>How often can I write?</h1>
 				<hr></hr>
 				<p>
-					You can only submit <b>one message</b> per day. There is a length limit to your post<br /><br /> <b>Note:</b> During
+					You can only submit <b>one message</b> per hour. There is a length limit to your message<br /><br /> <b>Note:</b> During
 					development this limit may be removed. Please don't spam.
 				</p>
 
